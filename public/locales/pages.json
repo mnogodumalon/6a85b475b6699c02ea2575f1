@@ -1,0 +1,31 @@
+{
+  "pages": {
+    "en": {
+      "Alle Kurse": "All Classes",
+      "Anmeldung": "Registration",
+      "Anmeldung für {0} geöffnet": "Registration for {0} opened",
+      "Anmeldungen gesamt": "Total Registrations",
+      "Anmeldungen pro Kurs": "Registrations per Class",
+      "Ausgebucht": "Fully Booked",
+      "Ausgebuchte Kurse": "Fully Booked Classes",
+      "Freie Plätze": "Available Spots",
+      "Heute": "Today",
+      "Kurs": "Class",
+      "Kurs anlegen": "Create Class",
+      "Kurse": "Classes",
+      "Neuer Kurs": "New Class",
+      "Noch keine Kurse angelegt — leg jetzt deinen ersten Kurs an!": "No classes created yet — create your first class now!",
+      "Noch keine Kurse angelegt.": "No classes created yet.",
+      "Ohne Name": "Unnamed",
+      "Warteliste öffnen": "Open Waitlist",
+      "Willkommen im Yogastudio!": "Welcome to the Yoga Studio!",
+      "ist ausgebucht": "is fully booked",
+      "keine freien Plätze mehr.": "no spots available.",
+      "sind ausgebucht": "are fully booked",
+      "{0} Kurse im Plan — {1}": "{0} classes scheduled — {1}",
+      "{0} neue Anmeldungen diese Woche — Kurse: {1}": "{0} new registrations this week — classes: {1}",
+      "{0}/{1} Plätze": "{0}/{1} Spots"
+    }
+  },
+  "v": 1
+}

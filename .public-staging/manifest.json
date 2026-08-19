@@ -1,0 +1,12 @@
+{
+  "pages": [
+    {
+      "file": "src/pages/public/Kursplan.tsx",
+      "component": "Kursplan",
+      "slug": "kursplan",
+      "ok": true,
+      "blocked": false,
+      "error": null
+    }
+  ]
+}

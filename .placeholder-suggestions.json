@@ -1,0 +1,22 @@
+{
+  "KursverwaltungDialog.tsx": {
+    "kursname": "z. B. Hatha Yoga am Morgen",
+    "beschreibung": "Aufwärmung, Grundstellungen, Atemübungen, Entspannung...",
+    "wochentag": "An welchem Wochentag findet der Kurs statt?",
+    "startzeit": "z. B. 09:00",
+    "endzeit": "z. B. 10:30",
+    "kursleitung": "z. B. Fr. Schmidt",
+    "schwierigkeitsgrad": "Anfänger, Mittelstufe, Fortgeschritten?",
+    "raum": "z. B. Studio Ost",
+    "max_teilnehmer": "z. B. 12",
+    "aktuelle_belegung": "z. B. 8"
+  },
+  "KursanmeldungDialog.tsx": {
+    "vorname": "z. B. Julia",
+    "nachname": "z. B. Müller",
+    "email": "z. B. julia@example.com",
+    "telefon": "z. B. +49 30 12345678",
+    "kurs": "Welchen Kurs möchte die Person buchen?",
+    "kommentar": "Besonderheiten, Fragen, Allergien, Erwartungen..."
+  }
+}

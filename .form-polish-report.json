@@ -1,0 +1,16 @@
+{
+  "entities": {
+    "Kursverwaltung": {
+      "placeholders_set": 10,
+      "defaults_keys": ["wochentag", "schwierigkeitsgrad", "max_teilnehmer", "aktuelle_belegung"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten-Verwaltung für Yogakurse. Number-Felder sind Kapazitäts-Indikatoren ohne Preis/Kosten-Relationen. Keine Datumspaare, keine applookup-Ziele mit Preis-Feldern, keine Zeiten-Multiplikationen — nichts berechenbar."
+    },
+    "Kursanmeldung": {
+      "placeholders_set": 6,
+      "defaults_keys": [],
+      "computed_keys": [],
+      "reason": "Registrierungs-Entity mit applookup auf Kursverwaltung. Die target_numeric_fields (max_teilnehmer, aktuelle_belegung) sind Kapazitäts-Metadaten, keine Preis-Ziele. Keine Zeitberechnungen, keine lokalen Mengen×Preis-Produkte im Anmeldungs-Formular — Aggregation der aktuelle_belegung gehört ins Dashboard oder Backend, nicht ins Formular-Computed."
+    }
+  }
+}

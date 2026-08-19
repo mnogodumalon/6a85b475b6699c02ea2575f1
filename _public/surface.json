@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "slug": "kursplan",
+      "component": "Kursplan",
+      "title": "Wöchentlicher Kursplan",
+      "endpoints": [
+        {
+          "entity": "kursverwaltung",
+          "op": "list",
+          "fields": [
+            "kursname",
+            "beschreibung",
+            "wochentag",
+            "startzeit",
+            "endzeit",
+            "kursleitung",
+            "schwierigkeitsgrad",
+            "raum",
+            "max_teilnehmer",
+            "aktuelle_belegung"
+          ],
+          "scope_description": "zeigt alle aktiven Kurse für den Kursplan",
+          "max_records": 200
+        },
+        {
+          "entity": "kursanmeldung",
+          "op": "create",
+          "fields": [
+            "vorname",
+            "nachname",
+            "email",
+            "telefon",
+            "kurs",
+            "kommentar"
+          ],
+          "preset_fields": {}
+        }
+      ]
+    }
+  ]
+}

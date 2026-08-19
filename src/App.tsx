@@ -15,6 +15,7 @@ import KursverwaltungDetailPage from '@/pages/KursverwaltungDetailPage';
 import KursanmeldungPage from '@/pages/KursanmeldungPage';
 import KursanmeldungDetailPage from '@/pages/KursanmeldungDetailPage';
 // <custom:imports>
+const IntentKursanmeldungVerwaltenPage = lazy(() => import('@/pages/intents/KursanmeldungVerwaltenPage'));
 // </custom:imports>
 
 // Lazy: public pages live outside <Layout> and only load on /#/public/:slug —
@@ -61,6 +62,7 @@ export default function App() {
                 <Route path="admin" element={<AdminPage />} />
                 <Route path="verwaltung/oeffentliche-seiten" element={<PublicPagesAdmin />} />
                 {/* <custom:routes> */}
+                <Route path="intents/kursanmeldung-verwalten" element={<Suspense fallback={null}><IntentKursanmeldungVerwaltenPage /></Suspense>} />
                 {/* </custom:routes> */}
               </Route>
             </Routes>

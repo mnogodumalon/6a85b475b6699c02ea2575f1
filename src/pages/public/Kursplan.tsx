@@ -11,23 +11,6 @@ import { tx } from '@/i18n';
 const WEEKDAY_ORDER = ['montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag'] as const;
 type WeekdayKey = typeof WEEKDAY_ORDER[number];
 
-const WEEKDAY_LABELS: Record<WeekdayKey, string> = {
-  montag: 'Montag',
-  dienstag: 'Dienstag',
-  mittwoch: 'Mittwoch',
-  donnerstag: 'Donnerstag',
-  freitag: 'Freitag',
-  samstag: 'Samstag',
-  sonntag: 'Sonntag',
-};
-
-const SCHWIERIGKEIT_LABELS: Record<string, string> = {
-  anfaenger: 'Anfänger',
-  mittelstufe: 'Mittelstufe',
-  fortgeschritten: 'Fortgeschritten',
-  alle_levels: 'Alle Levels',
-};
-
 const SCHWIERIGKEIT_COLORS: Record<string, string> = {
   anfaenger: 'bg-emerald-100 text-emerald-700',
   mittelstufe: 'bg-amber-100 text-amber-700',
@@ -64,6 +47,23 @@ interface FormErrors {
 }
 
 export default function Kursplan() {
+  const SCHWIERIGKEIT_LABELS: Record<string, string> = {
+  anfaenger: 'Anfänger',
+  mittelstufe: 'Mittelstufe',
+  fortgeschritten: 'Fortgeschritten',
+  alle_levels: 'Alle Levels',
+};
+
+  const WEEKDAY_LABELS: Record<WeekdayKey, string> = {
+  montag: 'Montag',
+  dienstag: 'Dienstag',
+  mittwoch: 'Mittwoch',
+  donnerstag: 'Donnerstag',
+  freitag: 'Freitag',
+  samstag: 'Samstag',
+  sonntag: 'Sonntag',
+};
+
   const [cfg, setCfg] = useState<PublicPagesConfig | null>(null);
   const [page, setPage] = useState<PublicPageConfig | null>(null);
   const [loading, setLoading] = useState(true);
@@ -349,7 +349,7 @@ export default function Kursplan() {
                       value={form.vorname}
                       onChange={e => setForm(f => ({ ...f, vorname: e.target.value }))}
                       className={`w-full px-3 py-2 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 ${errors.vorname ? 'border-rose-400 bg-rose-50' : 'border-gray-300'}`}
-                      placeholder="Maria"
+                      placeholder={tx('Maria')}
                     />
                     {errors.vorname && <p className="mt-1 text-xs text-rose-600">{errors.vorname}</p>}
                   </div>
@@ -360,7 +360,7 @@ export default function Kursplan() {
                       value={form.nachname}
                       onChange={e => setForm(f => ({ ...f, nachname: e.target.value }))}
                       className={`w-full px-3 py-2 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 ${errors.nachname ? 'border-rose-400 bg-rose-50' : 'border-gray-300'}`}
-                      placeholder="Mustermann"
+                      placeholder={tx('Mustermann')}
                     />
                     {errors.nachname && <p className="mt-1 text-xs text-rose-600">{errors.nachname}</p>}
                   </div>
@@ -373,7 +373,7 @@ export default function Kursplan() {
                     value={form.email}
                     onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
                     className={`w-full px-3 py-2 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 ${errors.email ? 'border-rose-400 bg-rose-50' : 'border-gray-300'}`}
-                    placeholder="maria@example.de"
+                    placeholder={tx('maria@example.de')}
                   />
                   {errors.email && <p className="mt-1 text-xs text-rose-600">{errors.email}</p>}
                 </div>

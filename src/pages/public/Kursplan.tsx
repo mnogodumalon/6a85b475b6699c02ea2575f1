@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { PublicShell } from '@/components/PublicShell';
 import {
   loadPublicPagesConfig, listPublicRecords, createPublicRecord,
-  prepareChallenge, recordRef, PageUnavailableError,
+  prepareChallenge, recordRef, PageUnavailableError, RateLimitedError,
   type PublicPagesConfig, type PublicPageConfig,
 } from '@/lib/publicClient';
 import { tx } from '@/i18n';
@@ -70,6 +70,7 @@ export default function Kursplan() {
   const [unavailable, setUnavailable] = useState(false);
   const [kurse, setKurse] = useState<Kurs[]>([]);
   const [kurseLoading, setKurseLoading] = useState(true);
+  const [kurseError, setKurseError] = useState<string | null>(null);
 
   const [selectedKurs, setSelectedKurs] = useState<Kurs | null>(null);
   const [form, setForm] = useState<FormData>({
@@ -117,6 +118,12 @@ export default function Kursplan() {
         aktuelle_belegung: (r.fields.aktuelle_belegung as number) ?? null,
       }));
       setKurse(records);
+    }).catch(err => {
+      if (err instanceof RateLimitedError) {
+        setKurseError(tx('Zu viele Anfragen. Bitte lade die Seite in Kürze neu.'));
+      } else {
+        setKurseError(tx('Kursplan konnte nicht geladen werden. Bitte versuche es erneut.'));
+      }
     }).finally(() => setKurseLoading(false));
   }, [cfg, page]);
 
@@ -210,6 +217,10 @@ export default function Kursplan() {
           <div className="flex items-center justify-center py-16 text-gray-400">
             <div className="w-8 h-8 border-2 border-violet-300 border-t-violet-600 rounded-full animate-spin mr-3" />
             {tx('Kursplan wird geladen …')}
+          </div>
+        ) : kurseError ? (
+          <div className="text-center py-16 text-gray-500">
+            <p className="text-lg font-medium">{kurseError}</p>
           </div>
         ) : daysWithCourses.length === 0 ? (
           <div className="text-center py-16 text-gray-500">

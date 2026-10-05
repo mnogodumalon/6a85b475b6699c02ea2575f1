@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "slug": "kursplan",
+      "type": "custom",
+      "entity": "kursanmeldung",
+      "title": "Wöchentlicher Kursplan",
+      "published": true,
+      "fields": [
+        "vorname",
+        "nachname",
+        "email",
+        "telefon",
+        "kurs",
+        "kommentar"
+      ],
+      "policy": null
+    }
+  ]
+}

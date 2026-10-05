@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "language": "en",
+  "understanding": {
+    "summary": "A yoga studio application with a weekly class schedule. Visitors see the classes and sign up for a specific one. Each class has a limited number of spots and closes for sign-ups once it is full. The studio team manages classes and sign-ups internally.",
+    "roles": [
+      "Studio owner",
+      "Studio staff",
+      "Visitor"
+    ],
+    "main_tasks": [
+      "Maintain the weekly class schedule",
+      "Let visitors sign up for a class",
+      "Keep the current occupancy of each class up to date",
+      "Block sign-ups for full classes",
+      "Review sign-ups per class"
+    ],
+    "platform_roles": [
+      {
+        "persona": "Studio owner",
+        "role": "administrator",
+        "apps": [
+          "kursverwaltung",
+          "kursanmeldung"
+        ]
+      },
+      {
+        "persona": "Studio staff",
+        "role": "datenverarbeitung",
+        "apps": [
+          "kursverwaltung",
+          "kursanmeldung"
+        ]
+      }
+    ]
+  },
+  "flows": [
+    {
+      "slug": "sign-up-for-class",
+      "label": {
+        "en": "Sign up for a class",
+        "de": "Für einen Kurs anmelden"
+      },
+      "description": "Staff register a person for a specific class by picking the class and entering contact details. Full classes cannot be chosen.",
+      "priority": "must",
+      "writes": [
+        {
+          "entity": "kursanmeldung",
+          "op": "create",
+          "when": "always",
+          "fields": {
+            "vorname": "user",
+            "nachname": "user",
+            "email": "user",
+            "telefon": "user",
+            "kurs": "picked",
+            "kommentar": "user"
+          },
+          "needs": {}
+        }
+      ],
+      "required": [],
+      "brief": "# Flow `sign-up-for-class` — Sign up for a class\nStaff register a person for a specific class by picking the class and entering contact details. Full classes cannot be chosen.\n\n## Your hook — import it, never rebuild what it owns\n`import { useSignUpForClassFlow } from '@/lib/journey/flows/SignUpForClass';` — generated from the Schreibliste below. It OWNS the form(s), one record search per picked field (columns and filter from the plan) and the submit plan with every fixed and derived value. You compose: `flow.forms.<entity>` for <Bound>/<Field>, `{...flow.picks.<field>.select} {...flow.pick('<field>')}` (or `flow.pickMany` for a multi pick) for <EntitySelectStep>, `flow.validateStep(n)` in StepNav.onNext, `flow.submit` + `flow.formList` for SummaryStep/SuccessStep, `flow.reset()`. Options: `steps` (field → step), `items` (how a hit reads, per pick: kurs), `initial`, `messages`. The hook's docblock in .lane-context.md shows the exact call. Never import servicePort, useStepForm, useJourneySubmit, useRecordSearch or useDashboardData in this page — check-intents refuses a page that uses the hook and any of them.\n\n## Steps (in this order)\n1. Pick a class that still has free spots\n2. Enter first name, last name, email and optional phone and comment\n3. Check that the class is not full\n4. Save the sign-up\n\n## Schreibliste — the ONLY writes this flow makes (the gate compares your plan steps with this list)\n- creates `kursanmeldung`:\n    - `vorname`: the user enters it (bind it through the layer: form.field/…)\n    - `nachname`: the user enters it (bind it through the layer: form.field/…)\n    - `email`: the user enters it (bind it through the layer: form.field/…)\n    - `telefon`: the user enters it (bind it through the layer: form.field/…)\n    - `kurs`: from the record the user picks in this flow\n    - `kommentar`: the user enters it (bind it through the layer: form.field/…)\n\n## Reads\n- `kursverwaltung` columns kursname, wochentag, startzeit, endzeit, kursleitung, schwierigkeitsgrad, max_teilnehmer, aktuelle_belegung\n\n## Checks BEFORE the write (block the submit with the message when they fail)\n- stock_sufficient (stock=`kursverwaltung.max_teilnehmer`, quantity=`kursverwaltung.aktuelle_belegung`) — message: „This class is full. Please choose another class.“\n\n## Success page\n- shows: `kursanmeldung.kurs`, `kursanmeldung.nachname`\n- next flows to offer: `sign-up-for-class`\n\n## Never write these — another flow or a tool owns them\n- `kursverwaltung.aktuelle_belegung` (owner: tool `update-class-occupancy`)\n"
+    }
+  ],
+  "public_pages": [
+    {
+      "slug": "class-schedule-signup",
+      "purpose": "Visitors see the weekly class schedule with free spots and sign up directly for a class that is not yet full.",
+      "publish": true,
+      "lists": [
+        {
+          "entity": "kursverwaltung",
+          "columns": [
+            "kursname",
+            "beschreibung",
+            "wochentag",
+            "startzeit",
+            "endzeit",
+            "kursleitung",
+            "schwierigkeitsgrad",
+            "raum",
+            "max_teilnehmer",
+            "aktuelle_belegung"
+          ],
+          "filter": null,
+          "max_records": null
+        }
+      ],
+      "creates": [
+        {
+          "entity": "kursanmeldung",
+          "fields": {
+            "vorname": "user",
+            "nachname": "user",
+            "email": "user",
+            "telefon": "user",
+            "kurs": "picked",
+            "kommentar": "user"
+          },
+          "fixed": {}
+        }
+      ],
+      "brief": "# Public page `class-schedule-signup`\nVisitors see the weekly class schedule with free spots and sign up directly for a class that is not yet full.\n\n## Lists (declare exactly these in the surface)\n- `kursverwaltung`: columns `kursname`, `beschreibung`, `wochentag`, `startzeit`, `endzeit`, `kursleitung`, `schwierigkeitsgrad`, `raum`, `max_teilnehmer`, `aktuelle_belegung`\n\n## Creates (declare exactly these in the surface)\n- `kursanmeldung`: visitor fields `vorname`, `nachname`, `email`, `telefon`, `kurs`, `kommentar`\n\nPublish: yes\n"
+    }
+  ],
+  "tools": [
+    {
+      "id": "update-class-occupancy",
+      "purpose": "When a sign-up is created, raise the current occupancy of the referenced class by one. Runs for sign-ups from the flow and from the public page, so neither writes the occupancy itself."
+    },
+    {
+      "id": "release-class-spot",
+      "purpose": "When a sign-up is deleted, lower the current occupancy of the referenced class by one so the spot becomes free again."
+    }
+  ],
+  "covered_by_platform": [
+    {
+      "wish": "See sign-ups per class",
+      "feature": "distribution_view"
+    },
+    {
+      "wish": "Maintain classes and edit sign-ups by hand",
+      "feature": "record_form"
+    },
+    {
+      "wish": "Search and sort the class list",
+      "feature": "search_filter"
+    }
+  ],
+  "ownership": {
+    "kursanmeldung": {
+      "vorname": "intent:sign-up-for-class",
+      "nachname": "intent:sign-up-for-class",
+      "email": "intent:sign-up-for-class",
+      "telefon": "intent:sign-up-for-class",
+      "kurs": "intent:sign-up-for-class",
+      "kommentar": "intent:sign-up-for-class"
+    },
+    "kursverwaltung": {
+      "aktuelle_belegung": "tool:release-class-spot"
+    }
+  },
+  "dashboard": {
+    "focus": [
+      "Classes with their occupancy and maximum spots",
+      "Classes that are almost full or full",
+      "Latest sign-ups"
+    ],
+    "hints": [
+      "Show occupancy next to maximum participants per class",
+      "Highlight full classes"
+    ]
+  }
+}

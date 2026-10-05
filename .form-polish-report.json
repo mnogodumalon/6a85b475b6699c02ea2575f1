@@ -1,0 +1,18 @@
+{
+  "entities": {
+    "Class Management": {
+      "placeholders_set": 9,
+      "defaults_keys": [
+        "aktuelle_belegung"
+      ],
+      "computed_keys": [],
+      "reason": "No formulas: times are text fields and no date pair, price or applookup exists to calculate from."
+    },
+    "Class Registration": {
+      "placeholders_set": 5,
+      "defaults_keys": [],
+      "computed_keys": [],
+      "reason": "No formulas: the registration has no date pair, quantity or price, and the numeric fields of the class (capacity, enrollment) do not form a sensible calculation here."
+    }
+  }
+}

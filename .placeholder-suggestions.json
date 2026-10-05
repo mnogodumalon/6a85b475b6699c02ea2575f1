@@ -1,0 +1,20 @@
+{
+  "KursverwaltungDialog.tsx": {
+    "kursname": "e.g. Morning Vinyasa Flow",
+    "beschreibung": "What happens in this class?",
+    "wochentag": "e.g. Monday, Tuesday",
+    "startzeit": "e.g. 18:00",
+    "endzeit": "e.g. 19:15",
+    "kursleitung": "e.g. Anna Meyer",
+    "raum": "e.g. Studio 1",
+    "max_teilnehmer": "e.g. 15",
+    "aktuelle_belegung": "e.g. 8"
+  },
+  "KursanmeldungDialog.tsx": {
+    "vorname": "z. B. Anna",
+    "nachname": "z. B. Müller",
+    "email": "z. B. anna@beispiel.de",
+    "kurs": "Welcher Kurs?",
+    "kommentar": "Anmerkungen oder Wünsche"
+  }
+}

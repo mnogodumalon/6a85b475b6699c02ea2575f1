@@ -1,0 +1,19 @@
+{
+  "entities": {
+    "Class Management": {
+      "placeholders_set": 9,
+      "defaults_keys": [
+        "aktuelle_belegung",
+        "schwierigkeitsgrad"
+      ],
+      "computed_keys": [],
+      "reason": "No formulas because times are text fields and there is no price or date pair, so no sensible numeric calculation exists."
+    },
+    "Class Registration": {
+      "placeholders_set": 5,
+      "defaults_keys": [],
+      "computed_keys": [],
+      "reason": "No formulas: a registration has no date pair, price or quantity, and the numeric fields of the class are only capacity data that do not yield a sensible calculation here."
+    }
+  }
+}
